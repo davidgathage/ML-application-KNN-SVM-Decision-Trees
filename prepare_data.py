@@ -77,24 +77,22 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 # ---------------------------------------------------------------------------
-# Constants shared by every model script Dataset\financial_inclusion_africa.csv
+# Constants shared by every model script
 # ---------------------------------------------------------------------------
 
-# Folder layout: the scripts live in their own folder, and the dataset
-# and outputs live in sibling folders under the shared parent folder:
-#   ProjectFolder/            <- the parent
-#   |-- Scripts/              <- these .py files (any folder name works)
+# Folder layout: the scripts are in the project root, alongside
+# the dataset and outputs folders:
+#   ProjectFolder/            <- these .py files live here
 #   |-- Dataset/financial_inclusion_africa.csv
 #   |-- Results/              <- created automatically on first run
 #
-# Path(__file__).parent is the folder holding this script; adding a
-# second .parent climbs one level up to the shared parent folder.
-DATA_FILE = (Path(__file__).parent.parent / "Dataset"
+# Path(__file__).parent is the folder holding this script.
+DATA_FILE = (Path(__file__).parent / "Dataset"
              / "financial_inclusion_africa.csv")
 
 # Where each model's results are written as a small JSON file, so that
 # compare_models.py can later gather them into one table and one chart.
-RESULTS_DIR = Path(__file__).parent.parent / "Results"
+RESULTS_DIR = Path(__file__).parent / "Results"
 
 # A fixed random seed. Anything random (shuffling the CV split, the ANN's
 # initial weights) will produce the same "random" numbers every run, so
