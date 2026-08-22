@@ -99,7 +99,7 @@ RESULTS_DIR = Path(__file__).parent / "Results"
 # results are reproducible - you and I will see identical accuracies.
 RANDOM_STATE = 42
 
-# Numeric columns: genuinely quantitative values.
+# Numeric columns: quantitative values.
 NUMERIC_COLS = ["household_size", "age_of_respondent"]
 
 # Categorical columns: labels with no numeric meaning. Note that "year"
@@ -128,7 +128,7 @@ def load_features_and_target():
     df = df.drop(columns=["uniqueid"])
 
     # The TARGET is what we want to predict. We convert the text labels
-    # to numbers: "Yes" -> 1, "No" -> 0. Most sklearn tools expect this.
+    # to numbers: "Yes" -> 1, "No" -> 0.
     y = df["bank_account"].map({"Yes": 1, "No": 0})
 
     # The FEATURES are every remaining column except the target itself.

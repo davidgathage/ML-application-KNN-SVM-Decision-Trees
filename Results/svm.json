@@ -1,0 +1,22 @@
+{
+  "model": "SVM",
+  "fold_accuracies": [
+    0.8871,
+    0.8891
+  ],
+  "cv_accuracy": 0.8881,
+  "all_samples_accuracy": 0.8921,
+  "baseline_accuracy": 0.8592,
+  "cv_seconds": 9.3,
+  "confusion_matrix": [
+    [
+      19884,
+      328
+    ],
+    [
+      2304,
+      1008
+    ]
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n  No account       0.90      0.98      0.94     20212\n Has account       0.75      0.30      0.43      3312\n\n    accuracy                           0.89     23524\n   macro avg       0.83      0.64      0.69     23524\nweighted avg       0.88      0.89      0.87     23524\n"
+}

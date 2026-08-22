@@ -1,0 +1,22 @@
+{
+  "model": "Decision Tree",
+  "fold_accuracies": [
+    0.8807,
+    0.8828
+  ],
+  "cv_accuracy": 0.8818,
+  "all_samples_accuracy": 0.8908,
+  "baseline_accuracy": 0.8592,
+  "cv_seconds": 0.2,
+  "confusion_matrix": [
+    [
+      19699,
+      513
+    ],
+    [
+      2268,
+      1044
+    ]
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n  No account       0.90      0.97      0.93     20212\n Has account       0.67      0.32      0.43      3312\n\n    accuracy                           0.88     23524\n   macro avg       0.78      0.64      0.68     23524\nweighted avg       0.86      0.88      0.86     23524\n"
+}

@@ -1,0 +1,22 @@
+{
+  "model": "ANN",
+  "fold_accuracies": [
+    0.885,
+    0.8868
+  ],
+  "cv_accuracy": 0.8859,
+  "all_samples_accuracy": 0.893,
+  "baseline_accuracy": 0.8592,
+  "cv_seconds": 2.9,
+  "confusion_matrix": [
+    [
+      19665,
+      547
+    ],
+    [
+      2137,
+      1175
+    ]
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n  No account       0.90      0.97      0.94     20212\n Has account       0.68      0.35      0.47      3312\n\n    accuracy                           0.89     23524\n   macro avg       0.79      0.66      0.70     23524\nweighted avg       0.87      0.89      0.87     23524\n"
+}
