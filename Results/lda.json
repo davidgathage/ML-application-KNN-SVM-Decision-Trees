@@ -1,0 +1,22 @@
+{
+  "model": "LDA",
+  "fold_accuracies": [
+    0.8796,
+    0.8808
+  ],
+  "cv_accuracy": 0.8802,
+  "all_samples_accuracy": 0.8808,
+  "baseline_accuracy": 0.8592,
+  "cv_seconds": 0.2,
+  "confusion_matrix": [
+    [
+      19416,
+      796
+    ],
+    [
+      2022,
+      1290
+    ]
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n  No account       0.91      0.96      0.93     20212\n Has account       0.62      0.39      0.48      3312\n\n    accuracy                           0.88     23524\n   macro avg       0.76      0.68      0.71     23524\nweighted avg       0.87      0.88      0.87     23524\n"
+}

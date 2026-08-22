@@ -1,7 +1,8 @@
 """
 prepare_data.py
 ===============
-Data-preparation for the Financial Inclusion in East Africa
+Shared data-preparation and evaluation helpers for the Financial Inclusion
+in Africa mini-project.
 
 THE PROBLEM
 -------------------------------
@@ -10,12 +11,12 @@ using facts about them: which country they live in, whether they live in
 a rural or urban area, whether they own a cellphone, their age, education
 level, job type, and so on.
 
-This is a BINARY CLASSIFICATION problem: the model must place each
+This is called a BINARY CLASSIFICATION problem: the model must place each
 person into one of exactly two classes (has account / does not).
 
-Every model script (knn_model.py, decision_tree_model.py,
+Every model script in this project (knn_model.py, decision_tree_model.py,
 ann_model.py, svm_model.py) imports the functions in this file, so the
-data is prepared IDENTICALLY for every algorithm. Reason being if each
+data is prepared IDENTICALLY for every algorithm. That matters: if each
 model saw differently-prepared data, any accuracy differences could be
 caused by the preparation instead of the algorithm, and the comparison
 would be unfair.
@@ -25,7 +26,7 @@ WHAT "PREPARATION" MEANS HERE
 Machine-learning algorithms work on numbers, not words. Our dataset is
 mostly words ("Kenya", "Rural", "Self employed"...), so we must:
 
-1. ENCODE the categorical (word) columns.
+1. ONE-HOT ENCODE the categorical (word) columns.
    "country" with 4 possible values becomes 4 new columns of 0s and 1s:
    country_Kenya, country_Rwanda, country_Tanzania, country_Uganda.
    A Kenyan respondent gets 1 in the first column and 0 in the others.
@@ -43,7 +44,7 @@ mostly words ("Kenya", "Rural", "Self employed"...), so we must:
 HOW WE EVALUATE (2-fold cross-validation)
 -----------------------------------------
 Testing a model on the same data it was trained on is like grading students
-on the exact questions they revised: ie. scores look great but mean little.
+on the exact questions they revised: scores look great but mean little.
 
 2-fold cross-validation (CV) fixes this:
   * Split the data into two halves (fold A and fold B).
@@ -80,13 +81,12 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 # Constants shared by every model script
 # ---------------------------------------------------------------------------
 
-# Folder layout: the scripts are in the project root, alongside
-# the dataset and outputs folders:
-#   ProjectFolder/            <- these .py files live here
+# Folder layout: the scripts live at the project root, and the dataset
+# and outputs live in sibling folders right next to them:
+#   ProjectFolder/             <- Path(__file__).parent
+#   |-- prepare_data.py        <- these .py files
 #   |-- Dataset/financial_inclusion_africa.csv
-#   |-- Results/              <- created automatically on first run
-#
-# Path(__file__).parent is the folder holding this script.
+#   |-- Results/               <- created automatically on first run
 DATA_FILE = (Path(__file__).parent / "Dataset"
              / "financial_inclusion_africa.csv")
 
@@ -99,7 +99,7 @@ RESULTS_DIR = Path(__file__).parent / "Results"
 # results are reproducible - you and I will see identical accuracies.
 RANDOM_STATE = 42
 
-# Numeric columns: quantitative values.
+# Numeric columns: genuinely quantitative values.
 NUMERIC_COLS = ["household_size", "age_of_respondent"]
 
 # Categorical columns: labels with no numeric meaning. Note that "year"
@@ -128,7 +128,7 @@ def load_features_and_target():
     df = df.drop(columns=["uniqueid"])
 
     # The TARGET is what we want to predict. We convert the text labels
-    # to numbers: "Yes" -> 1, "No" -> 0.
+    # to numbers: "Yes" -> 1, "No" -> 0. Most sklearn tools expect this.
     y = df["bank_account"].map({"Yes": 1, "No": 0})
 
     # The FEATURES are every remaining column except the target itself.
@@ -151,7 +151,13 @@ def make_preprocessor():
     return ColumnTransformer(
         transformers=[
             ("numeric", StandardScaler(), NUMERIC_COLS),
-            ("categorical", OneHotEncoder(handle_unknown="ignore"),
+            # sparse_output=False returns an ordinary (dense) table of 0s
+            # and 1s rather than a memory-saving "sparse" one. Our data is
+            # small, so the memory cost is trivial, and some models - LDA
+            # in particular - require dense input. Using it everywhere
+            # keeps the preprocessing identical for all models.
+            ("categorical",
+             OneHotEncoder(handle_unknown="ignore", sparse_output=False),
              CATEGORICAL_COLS),
         ]
     )

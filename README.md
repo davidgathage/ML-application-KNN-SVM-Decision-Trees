@@ -9,7 +9,7 @@
 
 ## The project
 
-This project examines financial inclusion in East Africa. The dataset contains survey data for 23,524 persons from Kenya, Rwanda, Tanzania, and Uganda. Each record shows the location, cellphone access, age, education level, and job type of one person. The target variable shows if the person has a bank account. Four machine-learning methods make this prediction: K-Nearest Neighbors (KNN), Decision Tree, Artificial Neural Network (ANN), and Support Vector Machine (SVM). The project compares the classification accuracy of the four methods.
+This project examines financial inclusion in East Africa. The dataset contains survey data for 23,524 persons from Kenya, Rwanda, Tanzania, and Uganda. Each record shows the location, cellphone access, age, education level, and job type of one person. The target variable shows if the person has a bank account. Five machine-learning methods make this prediction: K-Nearest Neighbors (KNN), Decision Tree, Artificial Neural Network (ANN), Support Vector Machine (SVM), and Linear Discriminant Analysis (LDA). The project compares the classification accuracy of the five methods.
 
 ## The approach
 
@@ -34,25 +34,27 @@ ProjectFolder/
 | `knn_model.py` | This script evaluates the KNN model. The model examines the 15 most similar persons and takes a distance-weighted vote. |
 | `decision_tree_model.py` | This script evaluates the Decision Tree model. The model learns a sequence of yes/no questions that divides the two classes. |
 | `ann_model.py` | This script evaluates the neural network. Two hidden layers with 64 and 32 neurons learn non-linear patterns in the data. |
-| `svm_model.py` | This script evaluates the SVM. The model finds the widest boundary between the two classes. This script is the slowest of the four. |
-| `compare_models.py` | This script collects the results of the four models. It writes a summary table and three charts to the Results folder. Run this script last. |
+| `svm_model.py` | This script evaluates the SVM. The model finds the widest boundary between the two classes. This script is the slowest of the five. |
+| `lda_model.py` | This script evaluates the LDA model. The method finds the straight line that best separates the two classes. It is a fast statistical baseline. |
+| `compare_models.py` | This script collects the results of the five models. It writes a summary table and three charts to the Results folder. Run this script last. |
 
 ## How to run the project
 
 1. Install Python 3.10 or a later version.
-2. Install the packages pandas, scikit-learn, and matplotlib.
+2. Install the packages with `pip install -r requirements.txt`.
 3. Open a terminal in the Scripts folder.
 4. Run `python knn_model.py`.
 5. Run `python decision_tree_model.py`.
 6. Run `python ann_model.py`.
 7. Run `python svm_model.py`.
-8. Run `python compare_models.py`.
+8. Run `python lda_model.py`.
+9. Run `python compare_models.py`.
 
 NOTE: If a results file is not present, `compare_models.py` runs the related model automatically.
 
 ## Results summary
 
-The SVM had the best cross-validation accuracy (0.8881). The ANN was second (0.8859), and the Decision Tree was third (0.8818). The KNN model had the lowest score (0.8733) and the largest memorization gap. The full results are in the Results folder.
+The SVM had the best cross-validation accuracy (0.8881). The ANN was second (0.8859), and the Decision Tree was third (0.8818). The LDA model scored 0.8802, and the KNN model was last (0.8733). The KNN model also had the largest memorization gap. The LDA model had the smallest gap, because a straight-line boundary cannot memorize the data. The LDA model also found the most true account holders. The full results are in the Results folder.
 
 ## Data source
 

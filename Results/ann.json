@@ -7,7 +7,7 @@
   "cv_accuracy": 0.8859,
   "all_samples_accuracy": 0.893,
   "baseline_accuracy": 0.8592,
-  "cv_seconds": 2.9,
+  "cv_seconds": 3.2,
   "confusion_matrix": [
     [
       19665,

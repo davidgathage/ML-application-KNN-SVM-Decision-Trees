@@ -50,8 +50,8 @@ from prepare_data import RESULTS_DIR, evaluate_model
 # Charts go in a subfolder of Results, next to the JSON and CSV outputs.
 FIGURES_DIR = RESULTS_DIR / "figures"
 
-# The four models, in the fixed order used everywhere in the report.
-MODELS = ["KNN", "Decision Tree", "ANN", "SVM"]
+# The five models, in the fixed order used everywhere in the report.
+MODELS = ["KNN", "Decision Tree", "ANN", "SVM", "LDA"]
 
 # ---------------------------------------------------------------------------
 # Chart colors (a colorblind-safe palette, validated for adjacent use)
@@ -79,8 +79,10 @@ def get_results(model_name):
             from decision_tree_model import build_model
         elif model_name == "ANN":
             from ann_model import build_model
-        else:
+        elif model_name == "SVM":
             from svm_model import build_model
+        else:
+            from lda_model import build_model
         evaluate_model(model_name, build_model())
     with open(path) as f:
         return json.load(f)
@@ -171,7 +173,9 @@ def chart_class_balance():
 
 def chart_confusion_matrices(results):
     """One 2x2 confusion matrix per model, from the CV predictions."""
-    fig, axes = plt.subplots(1, 4, figsize=(13, 3.6), dpi=200)
+    # One column per model, sized so any number of models fits neatly.
+    fig, axes = plt.subplots(1, len(MODELS), figsize=(2.6 * len(MODELS), 3.6),
+                             dpi=200)
     fig.patch.set_facecolor(SURFACE)
     cmap = matplotlib.colors.LinearSegmentedColormap.from_list("blues", BLUES)
 
